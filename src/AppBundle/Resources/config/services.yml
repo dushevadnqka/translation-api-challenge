@@ -1,0 +1,35 @@
+services:
+    app.language_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Language
+
+    app.key_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\TranslationKey
+
+    app.translation_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\Translation
+
+    app.create_translation_service:
+        class: AppBundle\Service\CreateTranslationKeyService
+        arguments:
+            - '@app.key_repository'
+            - '@app.language_repository'
+
+    app.google_translate_client_service:
+        class: AppBundle\Service\GoogleTranslateClientService
+
+    # app.export_as_format_service:
+    #     class: AppBundle\Service\ExportAsFormatInterface
+
+    # app.download_zip_service:
+    #     class: AppBundle\Service\DownloadZipService
+    #     arguments:
+    #         - '@app.export_as_format_service'

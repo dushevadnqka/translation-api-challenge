@@ -1,0 +1,27 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+    firewalls:
+        oauth_token:                                   # Everyone can access the access token URL.
+            pattern: ^/oauth/v2/token
+            security: false
+        
+        doc:
+            pattern: ^/doc
+            security: false                            # OAuth2 protected resource    
+            
+        api:
+            pattern: ^/api                                # All URLs are protected
+            fos_oauth: true                            # OAuth2 protected resource
+            stateless: true                            # Do no set session cookies
+            anonymous: false                           # Anonymous access is not allowed
+
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_ADMIN, ROLE_READER]
+
+    access_control:
+        - { path: ^/api/v1/translation, role: ROLE_ADMIN }

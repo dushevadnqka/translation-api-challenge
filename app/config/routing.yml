@@ -1,0 +1,14 @@
+app_translation_key:
+    resource: "@AppBundle/Controller/TranslationKeyController.php"
+    type:     annotation
+
+app:
+  resource: "@AppBundle/Resources/config/routing.yml"
+  prefix: /
+
+NelmioApiDocBundle:
+  resource: "@NelmioApiDocBundle/Resources/config/routing/swaggerui.xml"
+  prefix: /doc
+
+fos_oauth_server_token:
+    resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
